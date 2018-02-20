@@ -43,7 +43,6 @@ def asym_raised(k,log_k_left,log_k_right):
 	W[log_k  >= log_k_right] = (1+cos(theta_right))/2.
 	return W 
 	
-	
 
 def log_gamma(z):
 	
@@ -81,7 +80,8 @@ def u_m_vals(m,mu,q,kr,L):
 	
 	alpha_plus=(mu+1+x)/2.
 	alpha_minus=(mu+1-x)/2.
-		
+	
+	# need to use asymptotic expression for |Im{alpha}| > 200
 	rp, phip=log_gamma(alpha_plus) 
 	rm, phim=log_gamma(alpha_minus) 
 	
