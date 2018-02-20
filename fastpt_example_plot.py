@@ -8,6 +8,7 @@
 
 import numpy as np 
 #from matter_power_spt import one_loop
+from scipy.interpolate import interp1d
 import FASTPT 
 from time import time 
 
@@ -18,9 +19,10 @@ P=d[:,1]
 
 # use if you want to interpolate data 
 #from scipy.interpolate import interp1d 
-#power=interp1d(k,P)
-#k=np.logspace(np.log10(k[0]),np.log10(k[-1]),3000)
-#P=power(k)
+npoints=20000
+power=interp1d(k,P)
+k=np.logspace(np.log10(k[0]),np.log10(k[-1]),npoints)
+P=power(k)
 #print d[:,0]-k
 
 
@@ -47,7 +49,8 @@ fig=plt.figure(figsize=(16,10))
 
 x1=10**(-2.5)
 x2=10
-ax1=fig.add_subplot(211)
+#ax1=fig.add_subplot(211)
+ax1=fig.add_subplot(111)
 ax1.set_ylim(1e-2,1e3)
 ax1.set_xlim(x1,x2)
 ax1.set_xscale('log')
@@ -66,23 +69,23 @@ ax1.plot(k,-P_spt, '--',lw=2, color='black', alpha=.5 )
 
 plt.grid()
 
-ax2=fig.add_subplot(212)
-ax2.set_xscale('log')
-ax2.set_xlabel(r'$k$ [$h$/Mpc]', size=30)
-ax2.set_ylim(.99,1.01)
-ax2.set_xlim(x1,x2)
-ax2.tick_params(axis='both', which='major', labelsize=30)
-ax2.tick_params(axis='both', width=2, length=10)
-ax2.tick_params(axis='both', which='minor', width=1, length=5)
-ax2.xaxis.set_major_formatter(FormatStrFormatter('%2.2f'))
-ax2.xaxis.labelpad = 20
+#ax2=fig.add_subplot(212)
+#ax2.set_xscale('log')
+#ax2.set_xlabel(r'$k$ [$h$/Mpc]', size=30)
+#ax2.set_ylim(.99,1.01)
+#ax2.set_xlim(x1,x2)
+#ax2.tick_params(axis='both', which='major', labelsize=30)
+#ax2.tick_params(axis='both', width=2, length=10)
+#ax2.tick_params(axis='both', which='minor', width=1, length=5)
+#ax2.xaxis.set_major_formatter(FormatStrFormatter('%2.2f'))
+#ax2.xaxis.labelpad = 20
 
 
-ax2.plot(d[:,0],P_spt/(d[:,2]+d[:,3]),lw=2, color='black', alpha=.5, label='ratio to conventional method')
+#ax2.plot(d[:,0],P_spt/(d[:,2]+d[:,3]),lw=2, color='black', alpha=.5, label='ratio to conventional method')
 
-plt.legend(loc=3,fontsize=30)
-plt.grid()
+#plt.legend(loc=3,fontsize=30)
+#plt.grid()
 
 plt.tight_layout()
-plt.show()
+#plt.show()
 fig.savefig('example_plot.pdf')
